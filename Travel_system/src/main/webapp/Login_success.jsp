@@ -6,13 +6,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>logged in</title>
 </head>
 <body>
 
 <%String sessionID = String.valueOf(session.getAttribute("username"));%>
 
-	<h2>Congratulations, <%=sessionID%> ! you are now logged in</h2>
+	<h2>Congratulations, <%=sessionID%> ! you are now logged in</h2> <br></br>
+	<h2>Welcome to your home page</h2>
+
+
+	<form action="book_a_flight.jsp" method="post">
+		<button type="submit">Book Now</button>
+	</form>
+	<form action="user_portfolio.jsp" method="post">
+		<button type="submit">Account History</button>
+	</form>
 
 
 	<form action="welcome_page.jsp" method="post">

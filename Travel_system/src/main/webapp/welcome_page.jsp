@@ -17,7 +17,8 @@
 			<p>
 		</center>
 	</div>
-
+	
+	  
 	<div>
 		<center>
 
@@ -40,9 +41,18 @@
 					type="text" id="username" maxlength="20" required> <label
 					for="password"> Password: </label> <input name="password"
 					type="password" id="password" maxlength="50" required> <input
-					type="submit" value="submit">
+					type="submit" value="login">
 			</form>
 		</center>
+	</div>
+	
+	<div>
+	<br></br><br></br>
+	<center>
+	<form action="registration.jsp" method="post">
+		<button type="submit">Customer Registration</button>
+	</form>
+	</center>
 	</div>
 
 
