@@ -10,9 +10,11 @@
 </head>
 <body>
 
-<%String sessionID = String.valueOf(session.getAttribute("username"));%>
+<%String sessionID = String.valueOf(session.getAttribute("username"));
+String userType = String.valueOf(session.getAttribute("userType"));
+%>
 
-	<h2>Congratulations, <%=sessionID%> ! you are now logged in</h2> <br></br>
+	<h2>Congratulations, <%=sessionID%> ! you are now logged in with <%=userType%> privileges</h2> <br></br>
 	<h2>Welcome to your home page</h2>
 
 

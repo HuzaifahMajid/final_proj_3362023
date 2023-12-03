@@ -11,6 +11,8 @@
 <body>
 
 	<h2>get flight booking details</h2>
-<!-- insert code to  gather flight details -->
+	
+<!-- insert code to  gather flight details from user -->
+
 </body>
 </html>

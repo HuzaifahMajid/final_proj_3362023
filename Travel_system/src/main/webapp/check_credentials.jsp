@@ -22,7 +22,7 @@
 		Statement stmt = con.createStatement();
 
 		//making string for query
-		String query = "SELECT * FROM " + userType + " WHERE username= '" + username + "' AND password= '" + password + "'";
+		String query = "SELECT * FROM account WHERE username= '" + username + "' AND password= '" + password + "'"+ " And userType = '" + userType+"'";
 		//rs object to help execute query method
 		ResultSet rs = stmt.executeQuery(query);
 
@@ -31,8 +31,10 @@
 			
 			//give session to user
 			session.setAttribute("username", username);
+			session.setAttribute("userType",userType);
 			// print out session + welcome msg
 			out.print("welcome " + username);
+			out.print("you have "+ userType+ " privaleges");
 			
 			response.sendRedirect("Login_success.jsp");
 			
