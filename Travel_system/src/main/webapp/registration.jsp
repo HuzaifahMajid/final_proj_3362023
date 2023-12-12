@@ -23,6 +23,8 @@
 	<%
 	session.setAttribute("userType", "customer");
 	%>
+	
+	
 	<!-- add sql code to insert customer account to database so that check_credential page is used to log in-->
 
 
