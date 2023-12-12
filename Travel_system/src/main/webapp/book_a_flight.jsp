@@ -26,7 +26,7 @@
 <!-- make a form to get flight details from user. such as departure airport, destination airport, travel dates, one way or round trip, flexibile with dates or not-->
 
 <h1>Flight Reservation</h1>
-    <form action="flight_reservation.jsp" method="post">
+    <form action="list_flights.jsp" method="post">
         <label for="fromAirport">From Airport:</label>
         <input type="text" id="fromAirport" name="fromAirport">
         <br>
