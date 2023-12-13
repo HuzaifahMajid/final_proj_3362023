@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -49,23 +49,63 @@
 <!-- make a form to get flight details from user. such as departure airport, destination airport, travel dates, one way or round trip, flexibile with dates or not-->
 
 <h1>Flight Reservation</h1> 
+
+<%
+ApplicationDB db = new ApplicationDB();
+Connection con = db.getConnection();
+Statement stmt = con.createStatement();
+
+%>
+
+
     <form action="list_flights.jsp" method="post" onsubmit="return validateDates()">
+<!--  code for filling FROMAIRPORT drop down options with database values -->
         <label for="fromAirport">From Airport:</label>
-        <input type="text" id="fromAirport" name="fromAirport" required>
+        <select name = "fromAirport" id = "fromAirport" required>
+        <option> pick an airport </option>
+    <%
+    try {
+    	String query = "select * from airports";
+    	//get table data 
+    	ResultSet rs = stmt.executeQuery(query);
+    	while(rs.next()){
+    		%>
+    		<option><%=rs.getString("airportID") %></option>
+    		<% 
+    	}
+    }catch (Exception e){
+    }
+    %>
+        </select>
         <br>
+        
+        
+        <!--  code for filling TOAIRPORT drop down options with database values -->
         <label for="toAirport">To Airport:</label>
-        <input type="text" id="toAirport" name="toAirport" required>
+        <select name = "toAirport" id = "toAirport" required>
+        <option> pick an airport </option>
+    <%
+    try {
+    	String query = "select * from airports";
+    	//get table data 
+    	ResultSet rs = stmt.executeQuery(query);
+    	while(rs.next()){
+    		%>
+    		<option><%=rs.getString("airportID") %></option>
+    		<% 
+    	}
+    }catch (Exception e){
+    }
+    %>
+        </select>
         <br>
+        
         <label for="travelDates">Travel Dates:</label>
         <input type="date" id="travelDates" name="travelDates" required>
         <br>
         <label for="returnDates">Return Dates:</label>
         <input type="date" id="returnDates" name="returnDates" style="display: none;">
         <br>
-        
-        <%
-        
-        %>
         <label for="flightType">Flight Type:</label>
         <input type="radio" id="oneWay" name="flightType" value="oneWay" onchange="showReturnDate()">
         <label for="oneWay">One Way</label>
@@ -96,8 +136,26 @@
     <label for="numberOfStops">Number Of Stops:</label>
     <input type="text" id="numberOfStops" name="numberOfStops">
     <br>
+    
+    <!-- airline drop down select to be filled with values from database -->
     <label for="airline">Airline:</label>
-    <input type="text" id="airline" name="airline">
+    <select id="airline" name="airline">
+    <option> pick an airline </option>
+    <%
+    try {
+    	String query = "select * from airline";
+    	//get table data 
+    	ResultSet rs = stmt.executeQuery(query);
+    	while(rs.next()){
+    		%>
+    		<option><%=rs.getString("AirlineID") %></option>
+    		<% 
+    	}
+    }catch (Exception e){
+    }
+    %>
+    
+</select>
     <br>
 </form>
 
