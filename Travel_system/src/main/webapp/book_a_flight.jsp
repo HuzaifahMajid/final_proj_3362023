@@ -151,8 +151,12 @@ Statement stmt = con.createStatement();
     		<option><%=rs.getString("AirlineID") %></option>
     		<% 
     	}
-    }catch (Exception e){
+        con.close()
+    }catch (Exception ex){
+        out.print(ex);
     }
+
+    
     %>
     
 </select>
