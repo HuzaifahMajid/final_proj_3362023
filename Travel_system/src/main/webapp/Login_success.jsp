@@ -21,9 +21,16 @@ String userType = String.valueOf(session.getAttribute("userType"));
 	<form action="book_a_flight.jsp" method="post">
 		<button type="submit">Book Now</button>
 	</form>
-	<form action="user_portfolio.jsp" method="post">
-		<button type="submit">Account History</button>
-	</form>
+	
+	<% if ("admin".equals(userType)) { %>
+        <form action="AdminPage.jsp" method="post">
+            <button type="submit">Manage Report</button>
+        </form>
+    <% } else { %>
+        <form action="user_portfolio.jsp" method="post">
+            <button type="submit">Account History</button>
+        </form>
+    <% } %>
 
 
 	<form action="welcome_page.jsp" method="post">
