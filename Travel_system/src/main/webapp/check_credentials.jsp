@@ -15,8 +15,8 @@
 		String userType = request.getParameter("userType");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
- 		if userType == null {
-	    userType = "newuser";
+ 		if (userType == null) {
+	    userType = "newcustomer";
  }
 		
      
