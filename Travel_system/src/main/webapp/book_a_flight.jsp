@@ -122,7 +122,7 @@ Statement stmt = con.createStatement();
         
         <center>
         <h2>Filter Criteria</h2>
-        </center>
+        
         
 <!--add labels and get input from users for filtering for flights by different criteria like price, take-off-time, -->
     <label for="price">Price:</label>
@@ -162,6 +162,7 @@ Statement stmt = con.createStatement();
     %>
     
 </select>
+</center>
     <br>
     </form>
 <!-- make a new form that is activated by a check box "filter flights" , -->
