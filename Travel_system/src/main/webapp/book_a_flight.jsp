@@ -74,6 +74,7 @@ Statement stmt = con.createStatement();
     		<% 
     	}
     }catch (Exception e){
+        System.out.println("Error in getting From Airport list: " +e.toString());
     }
     %>
         </select>
@@ -95,6 +96,7 @@ Statement stmt = con.createStatement();
     		<% 
     	}
     }catch (Exception e){
+        out.print("Error in getting To Airport List: "+e.toString());
     }
     %>
         </select>
@@ -153,7 +155,7 @@ Statement stmt = con.createStatement();
     	}
         con.close()
     }catch (Exception ex){
-        out.print(ex);
+        out.println("<h2>" + ex + "</h2>");
     }
 
     
