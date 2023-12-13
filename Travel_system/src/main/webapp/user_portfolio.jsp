@@ -23,7 +23,7 @@
         ResultSet rs = pstmt.executeQuery();
         Date today = new Date();
         %>
-        <h2>Upcoming Reservation</h2>
+        <h2>Upcoming Reservations</h2>
         <table border="1">
             <tr>
                 <th>Reservation ID</th>
