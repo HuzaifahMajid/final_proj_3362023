@@ -25,7 +25,7 @@
 
 <!-- make a form to get flight details from user. such as departure airport, destination airport, travel dates, one way or round trip, flexibile with dates or not-->
 
-<h1>Flight Reservation</h1>
+<h1>Flight Reservation</h1> 
     <form action="list_flights.jsp" method="post">
         <label for="fromAirport">From Airport:</label>
         <input type="text" id="fromAirport" name="fromAirport">
@@ -50,6 +50,32 @@
         <br>
         <input type="submit" value="Submit">
     </form>
+<!-- make a new form that is activated by a check box "filter flights" , -->
+<form action="list_flights.jsp" method="post">
+    <input type="checkbox" id="filterFlights" name="filterFlights">
+    <label for="filterFlights">Filter Flights</label>
+    <br>
+<!--add labels and get input from users for filtering for flights by different criteria like price, take-off-time, -->
+    <label for="price">Price:</label>
+    <input type="text" id="price" name="price">
+    <br>
+    <label for="takeOffTime">Take Off Time:</label>
+    <input type="time" id="takeOffTime" name="takeOffTime">
+    <br>
+    <!--landing-times,number-of-stops,and airline  -->
+    <label for="landingTime">Landing Time:</label>
+    <input type="time" id="landingTime" name="landingTime">
+    <br>
+    <label for="numberOfStops">Number Of Stops:</label>
+    <input type="text" id="numberOfStops" name="numberOfStops">
+    <br>
+    <label for="airline">Airline:</label>
+    <input type="text" id="airline" name="airline">
+    <br>
+</form>
+
+
+
 
 </body>
 </html>

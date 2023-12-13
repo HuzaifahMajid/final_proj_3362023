@@ -15,10 +15,14 @@
 		String userType = request.getParameter("userType");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		if (userType == null) {
-			 userType = "newcustomer";
-	 }
+ 		if userType == null {
+	    userType = "newuser";
+ }
 		
+     
+
+
+
 		//get connection
 		ApplicationDB db = new ApplicationDB();
 		Connection con = db.getConnection();
