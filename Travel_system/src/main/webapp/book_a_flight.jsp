@@ -62,7 +62,7 @@ Statement stmt = con.createStatement();
 <!--  code for filling FROMAIRPORT drop down options with database values -->
         <label for="fromAirport">From Airport:</label>
         <select name = "fromAirport" id = "fromAirport" required>
-        <option> pick an airport </option>
+        <option></option>
     <%
     try {
     	String query = "select * from airports";
@@ -74,7 +74,8 @@ Statement stmt = con.createStatement();
     		<% 
     	}
     }catch (Exception e){
-        System.out.println("Error in getting From Airport list: " +e.toString());
+    	out.print(e);
+    	
     }
     %>
         </select>
@@ -84,7 +85,7 @@ Statement stmt = con.createStatement();
         <!--  code for filling TOAIRPORT drop down options with database values -->
         <label for="toAirport">To Airport:</label>
         <select name = "toAirport" id = "toAirport" required>
-        <option> pick an airport </option>
+        <option></option>
     <%
     try {
     	String query = "select * from airports";
@@ -109,7 +110,7 @@ Statement stmt = con.createStatement();
         <input type="date" id="returnDates" name="returnDates" style="display: none;">
         <br>
         <label for="flightType">Flight Type:</label>
-        <input type="radio" id="oneWay" name="flightType" value="oneWay" onchange="showReturnDate()">
+        <input type="radio" id="oneWay" name="flightType" value="oneWay" onchange="showReturnDate()" required>
         <label for="oneWay">One Way</label>
         <input type="radio" id="roundTrip" name="flightType" value="roundTrip" onchange="showReturnDate()">
         <label for="roundTrip">Round Trip</label>
@@ -118,12 +119,11 @@ Statement stmt = con.createStatement();
         <input type="checkbox" id="flexibility" name="flexibility">
         <br>
         <input type="submit" value="Submit">
-    </form>
-<!-- make a new form that is activated by a check box "filter flights" , -->
-<form action="list_flights.jsp" method="post">
-    <input type="checkbox" id="filterFlights" name="filterFlights">
-    <label for="filterFlights">Filter Flights</label>
-    <br>
+        
+        <center>
+        <h2>Filter Criteria</h2>
+        </center>
+        
 <!--add labels and get input from users for filtering for flights by different criteria like price, take-off-time, -->
     <label for="price">Price:</label>
     <input type="text" id="price" name="price">
@@ -142,7 +142,7 @@ Statement stmt = con.createStatement();
     <!-- airline drop down select to be filled with values from database -->
     <label for="airline">Airline:</label>
     <select id="airline" name="airline">
-    <option> pick an airline </option>
+    <option></option>
     <%
     try {
     	String query = "select * from airline";
@@ -153,7 +153,7 @@ Statement stmt = con.createStatement();
     		<option><%=rs.getString("AirlineID") %></option>
     		<% 
     	}
-        con.close()
+        con.close();
     }catch (Exception ex){
         out.println("<h2>" + ex + "</h2>");
     }
@@ -163,7 +163,9 @@ Statement stmt = con.createStatement();
     
 </select>
     <br>
-</form>
+    </form>
+<!-- make a new form that is activated by a check box "filter flights" , -->
+
 
 
 
