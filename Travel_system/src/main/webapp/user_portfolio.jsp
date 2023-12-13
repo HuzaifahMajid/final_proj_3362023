@@ -15,8 +15,15 @@
         String username = (String) session.getAttribute("username");
         ApplicationDB db = new ApplicationDB();
         con = db.getConnection();
+        
 
-        String query = "SELECT * FROM reservation WHERE ID = (SELECT AccountID FROM account WHERE username = ?)";
+        String query = "SELECT reservation.*, flight.ArrivalTime, " +
+                "CASE WHEN flight.ArrivalTime < NOW() THEN 'Past' " +
+                "ELSE 'Upcoming' END AS ReservationStatus " +
+                "FROM reservation " +
+                "JOIN flight ON reservation.FlightNumber = flight.FlightNumber " +
+                "WHERE reservation.ID = (SELECT AccountID FROM account WHERE username = ?) " +
+                "ORDER BY flight.ArrivalTime DESC;";
         PreparedStatement pstmt = con.prepareStatement(query);
         pstmt.setString(1, username);
 
@@ -35,58 +42,48 @@
                 <th>Booking Fee</th>
             </tr>
             <% while (rs.next()) {
-                Timestamp purchaseDateTime = rs.getTimestamp("PurchaseDateTime");
-                String ticketClass = rs.getString("TicketClass");
-                if (purchaseDateTime.after(today)) { %>
-                    <tr>
-                        <td><%= rs.getInt("ReservationID") %></td>
-                        <td><%= rs.getInt("FlightNumber") %></td>
-                        <td><%= rs.getString("SeatNumber") %></td>
-                        <td><%= ticketClass %></td>
-                        <td><%= rs.getDouble("TicketFare") %></td>
-                        <td><%= purchaseDateTime %></td>
-                        <td><%= rs.getDouble("BookingFee") %></td>
-                        <td>
-                            <% if ("business".equals(ticketClass) || "first".equals(ticketClass)) { %>
-                                <form action="CancelReservationServlet" method="post">
-                                    <input type="hidden" name="reservationId" value="<%= rs.getInt("ReservationID") %>" />
-                                    <input type="submit" value="Cancel Reservation" />
-                                </form>
-                            <% } %>
-                        </td>
-                    </tr>
-            <%  }
-            }
-            rs.beforeFirst(); // Reset ResultSet to the beginning %>
-        </table>
+            	if ("Upcoming".equals(rs.getString("ReservationStatus"))) { %>
+                <tr>
+                    <td><%= rs.getInt("ReservationID") %></td>
+                    <td><%= rs.getInt("FlightNumber") %></td>
+                    <td><%= rs.getString("SeatNumber") %></td>
+                    <td><%= rs.getString("TicketClass") %></td>
+                    <td><%= rs.getDouble("TicketFare") %></td>
+                    <td><%= rs.getTimestamp("PurchaseDateTime") %></td>
+                    <td><%= rs.getDouble("BookingFee") %></td>
+                </tr>
+            <% }
+        }
+        rs.beforeFirst(); // Reset ResultSet for the next iteration
+        %>
+    </table>
 
-        <h2>Past Reservations</h2>
-        <table border="1">
-            <tr>
-                <th>Reservation ID</th>
-                <th>Flight Number</th>
-                <th>Seat Number</th>
-                <th>Ticket Class</th>
-                <th>Ticket Fare</th>
-                <th>Purchase Date</th>
-                <th>Booking Fee</th>
-            </tr>
-            <% while (rs.next()) {
-                Timestamp purchaseDateTime = rs.getTimestamp("PurchaseDateTime");
-                if (purchaseDateTime.before(today)) { %>
-                    <tr>
-                        <td><%= rs.getInt("ReservationID") %></td>
-                        <td><%= rs.getInt("FlightNumber") %></td>
-                        <td><%= rs.getString("SeatNumber") %></td>
-                        <td><%= rs.getString("TicketClass") %></td>
-                        <td><%= rs.getDouble("TicketFare") %></td>
-                        <td><%= purchaseDateTime %></td>
-                        <td><%= rs.getDouble("BookingFee") %></td>
-                    </tr>
-            <%  }
-            } %>
-        </table>
-        <% 
+    <h2>Past Reservations</h2>
+    <table border="1">
+        <tr>
+            <th>Reservation ID</th>
+            <th>Flight Number</th>
+            <th>Seat Number</th>
+            <th>Ticket Class</th>
+            <th>Ticket Fare</th>
+            <th>Purchase Date</th>
+            <th>Booking Fee</th>
+        </tr>
+        <% while (rs.next()) {
+            if ("Past".equals(rs.getString("ReservationStatus"))) { %>
+                <tr>
+                    <td><%= rs.getInt("ReservationID") %></td>
+                    <td><%= rs.getInt("FlightNumber") %></td>
+                    <td><%= rs.getString("SeatNumber") %></td>
+                    <td><%= rs.getString("TicketClass") %></td>
+                    <td><%= rs.getDouble("TicketFare") %></td>
+                    <td><%= rs.getTimestamp("PurchaseDateTime") %></td>
+                    <td><%= rs.getDouble("BookingFee") %></td>
+                </tr>
+            <% }
+        } %>
+    </table>
+    <% 
         rs.close();
         pstmt.close();
     } catch (Exception ex) {
