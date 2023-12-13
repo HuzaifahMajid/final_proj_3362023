@@ -15,7 +15,9 @@
 		String userType = request.getParameter("userType");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		Object newuser = request.getAttribute("userType");
+		if (userType == null) {
+			 userType = "newcustomer";
+	 }
 		
 		//get connection
 		ApplicationDB db = new ApplicationDB();
