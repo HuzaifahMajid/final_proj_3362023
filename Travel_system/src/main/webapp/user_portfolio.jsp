@@ -58,7 +58,7 @@
         %>
     </table>
 
-    <h2>Past Reservations</h2>
+    <h2>Past Reservationss</h2>
     <table border="1">
         <tr>
             <th>Reservation ID</th>
