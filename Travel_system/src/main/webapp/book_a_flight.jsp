@@ -19,6 +19,29 @@
                 returnDates.style.display = "block";
             }
         }
+        
+        
+        // JavaScript to toggle the visibility of the returnDates field based on user input
+        document.getElementById('travelDates').addEventListener('input', function() {
+            var returnDatesInput = document.getElementById('returnDates');
+            returnDatesInput.style.display = this.value ? 'block' : 'none';
+        });
+        
+        //validate return date is after travel date
+        function validateDates() {
+            var travelDate = new Date(document.getElementById('travelDates').value);
+            var returnDate = new Date(document.getElementById('returnDates').value);
+
+            if (returnDate < travelDate) {
+                alert('Return date must be after the travel date.');
+                return false; // Prevent form submission
+            }
+
+            return true; // Allow form submission
+        }
+        
+        
+    
     </script>
 </head>
 <body>
@@ -26,19 +49,23 @@
 <!-- make a form to get flight details from user. such as departure airport, destination airport, travel dates, one way or round trip, flexibile with dates or not-->
 
 <h1>Flight Reservation</h1> 
-    <form action="list_flights.jsp" method="post">
+    <form action="list_flights.jsp" method="post" onsubmit="return validateDates()">
         <label for="fromAirport">From Airport:</label>
-        <input type="text" id="fromAirport" name="fromAirport">
+        <input type="text" id="fromAirport" name="fromAirport" required>
         <br>
         <label for="toAirport">To Airport:</label>
-        <input type="text" id="toAirport" name="toAirport">
+        <input type="text" id="toAirport" name="toAirport" required>
         <br>
         <label for="travelDates">Travel Dates:</label>
-        <input type="date" id="travelDates" name="travelDates">
+        <input type="date" id="travelDates" name="travelDates" required>
         <br>
         <label for="returnDates">Return Dates:</label>
         <input type="date" id="returnDates" name="returnDates" style="display: none;">
         <br>
+        
+        <%
+        
+        %>
         <label for="flightType">Flight Type:</label>
         <input type="radio" id="oneWay" name="flightType" value="oneWay" onchange="showReturnDate()">
         <label for="oneWay">One Way</label>
