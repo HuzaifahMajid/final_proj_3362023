@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `travelreservationdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `travelreservationdb`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: localhost    Database: travelreservationdb
@@ -32,16 +30,18 @@ CREATE TABLE `account` (
   PRIMARY KEY (`AccountID`),
   UNIQUE KEY `AccountID_UNIQUE` (`AccountID`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`AccountID`, `username`, `password`, `userType`) VALUES (1,'zazi','admin','admin');
-INSERT INTO `account` (`AccountID`, `username`, `password`, `userType`) VALUES (2,'mark','123','customerrep');
-INSERT INTO `account` (`AccountID`, `username`, `password`, `userType`) VALUES (3,'jeff','123','customer');
+LOCK TABLES `account` WRITE;
+/*!40000 ALTER TABLE `account` DISABLE KEYS */;
+INSERT INTO `account` VALUES (1,'zazi','admin','admin'),(2,'mark','123','customerrep'),(3,'jeff','123','customer'),(5,'test','test','customer'),(6,'musa','lol','customer'),(7,'ray','gay','customer');
+/*!40000 ALTER TABLE `account` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `aircraft`
@@ -57,13 +57,18 @@ CREATE TABLE `aircraft` (
   PRIMARY KEY (`AircraftID`),
   KEY `AirlineID_idx` (`AirlineID`),
   CONSTRAINT `AirlineID` FOREIGN KEY (`AirlineID`) REFERENCES `airline` (`AirlineID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `aircraft`
 --
 
+LOCK TABLES `aircraft` WRITE;
+/*!40000 ALTER TABLE `aircraft` DISABLE KEYS */;
+INSERT INTO `aircraft` VALUES (1,'DA',50),(2,'UA',100);
+/*!40000 ALTER TABLE `aircraft` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `airline`
@@ -83,6 +88,11 @@ CREATE TABLE `airline` (
 -- Dumping data for table `airline`
 --
 
+LOCK TABLES `airline` WRITE;
+/*!40000 ALTER TABLE `airline` DISABLE KEYS */;
+INSERT INTO `airline` VALUES ('DA',5),('UA',10);
+/*!40000 ALTER TABLE `airline` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `airports`
@@ -105,6 +115,11 @@ CREATE TABLE `airports` (
 -- Dumping data for table `airports`
 --
 
+LOCK TABLES `airports` WRITE;
+/*!40000 ALTER TABLE `airports` DISABLE KEYS */;
+INSERT INTO `airports` VALUES ('JFK','John F.K Airport','New York','United States'),('LHR','Heathrow','London','United Kingdom');
+/*!40000 ALTER TABLE `airports` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `flight`
@@ -122,7 +137,13 @@ CREATE TABLE `flight` (
   `ArrivalTime` datetime NOT NULL,
   `FlightType` varchar(20) NOT NULL,
   `AircraftID` int NOT NULL,
-  `DaysOfOperation` varchar(100) NOT NULL,
+  `Monday` tinyint DEFAULT '1',
+  `Tuesday` tinyint DEFAULT '0',
+  `Wednesday` tinyint DEFAULT '1',
+  `Thursday` tinyint DEFAULT '0',
+  `Friday` tinyint DEFAULT '0',
+  `Saturday` tinyint DEFAULT '0',
+  `Sunday` tinyint DEFAULT '0',
   PRIMARY KEY (`FlightNumber`),
   KEY `AircraftID_idx` (`AircraftID`),
   KEY `DepartureAirport_idx` (`DepartureAirportID`),
@@ -132,13 +153,18 @@ CREATE TABLE `flight` (
   CONSTRAINT `airline_ID` FOREIGN KEY (`AirlineID`) REFERENCES `airline` (`AirlineID`),
   CONSTRAINT `arrivalAID` FOREIGN KEY (`DestinationAirportID`) REFERENCES `airports` (`airportID`),
   CONSTRAINT `departAID` FOREIGN KEY (`DepartureAirportID`) REFERENCES `airports` (`airportID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `flight`
 --
 
+LOCK TABLES `flight` WRITE;
+/*!40000 ALTER TABLE `flight` DISABLE KEYS */;
+INSERT INTO `flight` VALUES (1,'DA','JFK','LHR','2023-01-15 08:00:00','2023-01-16 12:00:00','International',1,1,0,1,0,0,0,0);
+/*!40000 ALTER TABLE `flight` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `questionanswer`
@@ -162,6 +188,10 @@ CREATE TABLE `questionanswer` (
 -- Dumping data for table `questionanswer`
 --
 
+LOCK TABLES `questionanswer` WRITE;
+/*!40000 ALTER TABLE `questionanswer` DISABLE KEYS */;
+/*!40000 ALTER TABLE `questionanswer` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `reservation`
@@ -191,6 +221,10 @@ CREATE TABLE `reservation` (
 -- Dumping data for table `reservation`
 --
 
+LOCK TABLES `reservation` WRITE;
+/*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `waitlist`
@@ -218,6 +252,10 @@ CREATE TABLE `waitlist` (
 -- Dumping data for table `waitlist`
 --
 
+LOCK TABLES `waitlist` WRITE;
+/*!40000 ALTER TABLE `waitlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `waitlist` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -228,4 +266,4 @@ CREATE TABLE `waitlist` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-12  6:21:05
+-- Dump completed on 2023-12-13 19:09:08
