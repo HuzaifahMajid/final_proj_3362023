@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `travelreservationdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `travelreservationdb`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: localhost    Database: travelreservationdb
@@ -122,6 +124,68 @@ INSERT INTO `airports` VALUES ('JFK','John F.K Airport','New York','United State
 UNLOCK TABLES;
 
 --
+-- Table structure for table `financial_summary`
+--
+
+DROP TABLE IF EXISTS `financial_summary`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `financial_summary` (
+  `SummaryID` int NOT NULL AUTO_INCREMENT,
+  `Month` int DEFAULT NULL,
+  `Year` int DEFAULT NULL,
+  `FlightNumber` int DEFAULT NULL,
+  `AirlineID` varchar(2) DEFAULT NULL,
+  `CustomerID` int DEFAULT NULL,
+  `TotalRevenue` decimal(10,2) DEFAULT NULL,
+  `TotalTicketsSold` int DEFAULT NULL,
+  PRIMARY KEY (`SummaryID`),
+  KEY `FlightNumber` (`FlightNumber`),
+  KEY `AirlineID` (`AirlineID`),
+  KEY `CustomerID` (`CustomerID`),
+  CONSTRAINT `financial_summary_ibfk_1` FOREIGN KEY (`FlightNumber`) REFERENCES `flight` (`FlightNumber`),
+  CONSTRAINT `financial_summary_ibfk_2` FOREIGN KEY (`AirlineID`) REFERENCES `airline` (`AirlineID`),
+  CONSTRAINT `financial_summary_ibfk_3` FOREIGN KEY (`CustomerID`) REFERENCES `account` (`AccountID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `financial_summary`
+--
+
+LOCK TABLES `financial_summary` WRITE;
+/*!40000 ALTER TABLE `financial_summary` DISABLE KEYS */;
+/*!40000 ALTER TABLE `financial_summary` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `financial_transactions`
+--
+
+DROP TABLE IF EXISTS `financial_transactions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `financial_transactions` (
+  `TransactionID` int NOT NULL AUTO_INCREMENT,
+  `TransactionDateTime` datetime DEFAULT NULL,
+  `TicketID` int DEFAULT NULL,
+  `Amount` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`TransactionID`),
+  KEY `TicketID` (`TicketID`),
+  CONSTRAINT `financial_transactions_ibfk_1` FOREIGN KEY (`TicketID`) REFERENCES `reservation` (`ReservationID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `financial_transactions`
+--
+
+LOCK TABLES `financial_transactions` WRITE;
+/*!40000 ALTER TABLE `financial_transactions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `financial_transactions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `flight`
 --
 
@@ -144,6 +208,8 @@ CREATE TABLE `flight` (
   `Friday` tinyint DEFAULT '0',
   `Saturday` tinyint DEFAULT '0',
   `Sunday` tinyint DEFAULT '0',
+  `price` decimal(10,2) DEFAULT NULL,
+  `numberOfStops` int DEFAULT NULL,
   PRIMARY KEY (`FlightNumber`),
   KEY `AircraftID_idx` (`AircraftID`),
   KEY `DepartureAirport_idx` (`DepartureAirportID`),
@@ -162,7 +228,7 @@ CREATE TABLE `flight` (
 
 LOCK TABLES `flight` WRITE;
 /*!40000 ALTER TABLE `flight` DISABLE KEYS */;
-INSERT INTO `flight` VALUES (1,'DA','JFK','LHR','2023-01-15 08:00:00','2023-01-16 12:00:00','International',1,1,0,1,0,0,0,0);
+INSERT INTO `flight` VALUES (1,'DA','JFK','LHR','2023-01-15 08:00:00','2023-01-16 12:00:00','International',1,1,0,1,0,0,0,0,500.00,2);
 /*!40000 ALTER TABLE `flight` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,9 +275,12 @@ CREATE TABLE `reservation` (
   `TicketFare` decimal(10,2) DEFAULT NULL,
   `PurchaseDateTime` datetime DEFAULT NULL,
   `BookingFee` decimal(10,2) DEFAULT NULL,
+  `AirlineID` varchar(2) DEFAULT NULL,
+  `PassFirstName` varchar(50) DEFAULT NULL,
+  `PassLastName` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ReservationID`),
   KEY `ID_idx` (`ID`),
-  KEY `reservation_ibfk_2_idx` (`FlightNumber`),
+  KEY `flightNUM` (`FlightNumber`),
   CONSTRAINT `flightNUM` FOREIGN KEY (`FlightNumber`) REFERENCES `flight` (`FlightNumber`),
   CONSTRAINT `ID` FOREIGN KEY (`ID`) REFERENCES `account` (`AccountID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -266,4 +335,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-13 19:09:08
+-- Dump completed on 2023-12-15  4:11:56
