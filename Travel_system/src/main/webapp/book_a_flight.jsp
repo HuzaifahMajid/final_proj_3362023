@@ -51,12 +51,21 @@
 <h1>Flight Reservation</h1> 
 
 <%
+String userType = String.valueOf(session.getAttribute("userType"));
+
+
 ApplicationDB db = new ApplicationDB();
 Connection con = db.getConnection();
 Statement stmt = con.createStatement();
 
-%>
-
+%><% 
+if ("customerrep".equals(userType)) { %>
+<form action="book_a_flight.jsp" method="post" name= "forcustomer">
+    <button type="submit">Book for customer</button>
+    <input type = "text" required>
+</form> 
+<% 
+ } %>
 
     <form action="list_flights.jsp" method="post" onsubmit="return validateDates()">
 <!--  code for filling FROMAIRPORT drop down options with database values -->
