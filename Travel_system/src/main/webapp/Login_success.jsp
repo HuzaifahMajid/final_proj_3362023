@@ -17,21 +17,30 @@ String userType = String.valueOf(session.getAttribute("userType"));
 	<h2>Congratulations, <%=sessionID%> ! you are now logged in with <%=userType%> privileges</h2> <br></br>
 	<h2>Welcome to your home page</h2>
 
-
-	<form action="book_a_flight.jsp" method="post">
-		<button type="submit">Book Now</button>
-	</form>
 	
 	<% if ("admin".equals(userType)) { %>
         <form action="AdminPage.jsp" method="post">
             <button type="submit">Manage Report</button>
         </form>
-    <% } else { %>
+    <% } else if ("customer".equals(userType)){ %>
         <form action="user_portfolio.jsp" method="post">
             <button type="submit">Account History</button>
+            		<button type="submit" formaction="book_a_flight.jsp">Book Now</button>
+            
+			<button type="submit" formaction="ask_question.jsp">Ask a Question</button>
+            <button type="submit" formaction="view_all_questions.jsp">View All Questions</button>
+            
         </form>
-    <% } %>
-
+    <% } else if("customerrep".equals(userType)){
+    	%><form action="customer_rep.jsp" method="post">
+        <button type="submit">Manage bookings</button>
+        		<button type="submit" formaction="book_a_flight.jsp">Book Now</button>
+        
+        <button type="submit" formaction="view_all_questions.jsp">View and Answer All Questions</button>
+    </form>
+    	<% 
+    }
+%>
 
 	<form action="welcome_page.jsp" method="post">
 		<button type="submit">Log-out</button>
