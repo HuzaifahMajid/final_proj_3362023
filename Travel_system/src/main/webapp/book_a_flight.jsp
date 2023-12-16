@@ -110,9 +110,9 @@ Statement stmt = con.createStatement();
         <input type="date" id="returnDates" name="returnDates" style="display: none;">
         <br>
         <label for="flightType">Flight Type:</label>
-        <input type="radio" id="oneWay" name="flightType" value="oneWay" onchange="showReturnDate()" required>
+        <input type="radio" id="oneWay" name="flightType" value="oneWay" onclick="showReturnDate()" required>
         <label for="oneWay">One Way</label>
-        <input type="radio" id="roundTrip" name="flightType" value="roundTrip" onchange="showReturnDate()">
+        <input type="radio" id="roundTrip" name="flightType" value="roundTrip" onclick="showReturnDate()">
         <label for="roundTrip">Round Trip</label>
         <br>
         <label for="flexibility">Flexibility (+/- 3 days):</label>

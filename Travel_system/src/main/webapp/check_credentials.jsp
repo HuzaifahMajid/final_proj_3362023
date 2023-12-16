@@ -11,6 +11,7 @@
 </head>
 <body>
 	<%
+	
 	try {
 		String userType = request.getParameter("userType");
 		String username = request.getParameter("username");
@@ -20,9 +21,6 @@
  }
 		
      
-
-
-
 		//get connection
 		ApplicationDB db = new ApplicationDB();
 		Connection con = db.getConnection();
