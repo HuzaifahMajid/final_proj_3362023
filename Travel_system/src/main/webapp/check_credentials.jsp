@@ -10,6 +10,12 @@
 <title>Credential check Page</title>
 </head>
 <body>
+
+<script>
+<% 
+
+%>
+</script>
 	<%
 	
 	try {
@@ -45,6 +51,8 @@
 				//give session to user
 				session.setAttribute("username", username);
 				session.setAttribute("userType",userType);
+				session.setAttribute("password",password);
+
 				// print out session + welcome msg
 				out.print("welcome " + username);
 				out.print("you have "+ userType+ " privaleges");
@@ -71,12 +79,18 @@
 			pstmt.setString(3, "customer");
 
 			// execute the query
+			
 			int result = pstmt.executeUpdate();
+			
+			
 			if (result > 0) {
 				pstmt.close();
-				con.close();
+				
 				session.setAttribute("username", username);
 				session.setAttribute("userType","customer");
+				session.setAttribute("userType",password);
+
+				
 				response.sendRedirect("Login_success.jsp");
 
 			}else{
@@ -88,6 +102,11 @@
 
 			 	
 	}
+		
+		
+	   
+
+		
 		//close connections
 		
 		con.close();

@@ -10,6 +10,12 @@
 </head>
 <body>
 
+  <form action="add_question.jsp" method="post">
+        <label for="question">Question:</label>
+        <textarea id="question" name="question" rows="4" cols="50" required></textarea>
+        <br>
+        <input type="submit" value="Submit Question">
+    </form>
 
 </body>
 </html>
