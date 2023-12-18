@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
@@ -11,20 +10,34 @@
 </head>
 <body>
 
+<script>
+console.log('FLIGHTTYPE Attribute: <%= String.valueOf(session.getAttribute("flightType")) %>');
+console.log('FROMAIRPORT Attribute: <%= String.valueOf(session.getAttribute("fromAirport")) %>');
+console.log('TOAIRPORT Attribute: <%= String.valueOf(session.getAttribute("toAirport")) %>');
+console.log('RETURNDATES Attribute: <%= String.valueOf(session.getAttribute("returnDates")) %>');
+console.log('TICEKTNUMBER Attribute: <%= String.valueOf(session.getAttribute("ticektnumber")) %>');
+
+ 
+   function redirectToReturnFlights() {
+       // Redirect to the list_flights.jsp with return dates set as travel dates
+       var form = document.getElementById("reservation_details");
+       form.action = "list_flights.jsp";
+       form.submit();
+   }
+    
+    </script>
+
 <h2>Ticket Booking Details</h2>
-<%     boolean roundTrip = "true".equals(request.getAttribute("roundtrip")); // Check if roundTrip attribute is true
- 		if (roundTrip) {
-out.println(roundTrip); }else{
-	out.print("fuck you");
-}
-%>
-<form id = "reservation_details" action="submitTicketDetails" method="post">
+
+
+
+<form id="reservation_details" action="add_reservation.jsp" method="post">
     <label for="ticketType">Ticket Type:</label><br>
-    <input type="radio" id="businessClass" name="ticketType" value="Business Class" required>
+    <input type="radio" id="businessClass" name="ticketType" value="Business" required>
     <label for="businessClass">Business Class</label>
-    <input type="radio" id="firstClass" name="ticketType" value="First Class">
+    <input type="radio" id="firstClass" name="ticketType" value="First">
     <label for="firstClass">First Class</label>
-    <input type="radio" id="economyClass" name="ticketType" value="Economy Class">
+    <input type="radio" id="economyClass" name="ticketType" value="Economy">
     <label for="economyClass">Economy Class</label><br>
 
     <label for="passengerFirstName">Passenger First Name:</label><br>
@@ -34,17 +47,23 @@ out.println(roundTrip); }else{
     <input type="text" id="passengerLastName" name="passengerLastName" required><br>
     
     <label for="seatNumber">Seat Number:</label><br>
-    <select id="seatNumber" name="seatNumber">
+    <select id="seatNumber" name="seatNumber" required >
+    <option> wow </option>
         <!-- Populate this dropdown dynamically with available seat numbers from the database -->
         <!-- Example options -->
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
         <!-- Add more options as needed -->
     </select><br><br>
     
     <input type="submit" value="Pay and Reserve!">
-    
+    <% 
+        // Check if the flight type is round trip
+        if ("roundTrip".equals(session.getAttribute("flightType"))) {
+        	
+    %>			
+            <input type="button" value="Search Return Flights" onclick="redirectToReturnFlights()">
+    <%
+        }
+    %>
 </form>
 
 </body>
