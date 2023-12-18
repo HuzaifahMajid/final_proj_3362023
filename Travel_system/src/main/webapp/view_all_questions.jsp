@@ -78,7 +78,7 @@
         if (userType != null && userType.equals("customerrep")) {
 %>
 
-            <form action="customer_answer.jsp" method="post">
+            <form action="customer_rep.jsp" method="post">
                 <h2>All Questions (Customer Rep)</h2>
                 <table border="1">
                     <tr>

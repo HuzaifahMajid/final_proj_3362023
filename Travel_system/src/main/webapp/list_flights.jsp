@@ -85,7 +85,7 @@ function validateForm() {
 	
 		session.setAttribute("flightType",request.getParameter("flightType"));
 		if ("roundTrip".equals(session.getAttribute("flightType"))) {
-			//set session attribute return date
+			
 			session.setAttribute("returnDates",request.getParameter("returnDates"));
 		}
 		%>
