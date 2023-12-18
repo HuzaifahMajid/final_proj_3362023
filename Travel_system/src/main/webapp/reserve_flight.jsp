@@ -48,11 +48,27 @@ console.log('TICEKTNUMBER Attribute: <%= String.valueOf(session.getAttribute("ti
     
     <label for="seatNumber">Seat Number:</label><br>
     <select id="seatNumber" name="seatNumber" required >
-    <option> wow </option>
-        <!-- Populate this dropdown dynamically with available seat numbers from the database -->
-        <!-- Example options -->
-        <!-- Add more options as needed -->
-    </select><br><br>
+    <option value="">Select a seat</option>
+    </select><br><br> 
+
+	<script>
+	    // Set the total number of seats
+	    var totalSeats = 100; // Change this number based on your requirement
+	
+	    // Get the dropdown element
+	    var dropdown = document.getElementById('seatNumber');
+	
+	    // Populate the dropdown with seat numbers
+	    for(var i = 1; i <= totalSeats; i++) {
+	        // Create a new option element
+	        var option = document.createElement('option');
+	        option.value = i;
+	        option.text = 'Seat' + i;
+	
+	        // Append the option to the dropdown
+	        dropdown.appendChild(option);
+	    }
+	</script>
     
     <input type="submit" value="Pay and Reserve!">
     <% 
